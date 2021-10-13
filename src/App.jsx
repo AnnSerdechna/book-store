@@ -41,7 +41,7 @@ function App() {
 export default App;
 
 const Main = styled.div`
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 20px auto;
 `;
 

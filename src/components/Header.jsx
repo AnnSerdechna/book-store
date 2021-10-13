@@ -54,13 +54,15 @@ const MyHeader = styled.header`
 
 const InputWrapper = styled.div`
   display: flex;
+  flex: 0.6;
   align-items: center;
-  border: 1px solid #1976d2;
-  padding: 0 10px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  padding: 5px 20px;
   border-radius: 5px;
 `;
 
 const Input = styled.input`
+  flex: 1;
   background: transparent;
   border: none;
   outline: none;
@@ -80,11 +82,11 @@ const CartWrapper = styled.div`
   position: relative;
 
   strong {
-    background: #ff1536;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     color: #fff;
     font-size: 16px;
     font-weight: 500;
-    padding: 5px;
+    padding: 10px 20px;
     border-radius: 5px;
     margin-right: 3px;
   }
@@ -105,9 +107,10 @@ const Button = styled.button`
   border: 1px solid #1976d2;
   color: #1976d2;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px 20px;
   margin: 10px;
   transition: all 300ms;
+  cursor: pointer;
 
   &:hover {
     border-color: #f40062;

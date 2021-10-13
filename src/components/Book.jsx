@@ -64,9 +64,8 @@ const Book = styled.div`
   flex-direction: column;
   padding: 10px;
   color: white;
-  min-width: 200px;
   border-radius: 5px;
-  border: 1px solid #1f87ff;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   transition: all 300ms;
 
   &:hover {
@@ -107,8 +106,7 @@ const ImageWrapper = styled.div`
   justify-content: space-between;
 
   img {
-    width: 130px;
-    height: 200px;
+    width: 100px;
     object-fit: contain;
   }
 `;
@@ -122,44 +120,3 @@ const Favorite = styled(FavoriteIcon)`
 `;
 
 
-
-{
-  /* <a href={accessInfo?.webReaderLink} target="_blank">
-        Read
-      </a> */
-}
-{
-  /* <a href={saleInfo?.buyLink} target="_blank">
-        Buy
-      </a> */
-}
-
-{
-  /* <p>{book.searchInfo.textSnippet}</p> */
-}
-
-{
-  /* <a href={volumeInfo?.previewLink} target="_blank">
-        Preview
-      </a> */
-}
-
-{
-  /* {volumeInfo?.categories?.map((category, index) => (
-        <strong key={index} style={{ backgroundColor: "red" }}>
-          {category}
-        </strong>
-      ))} */
-}
-
-{
-  /* <p>{volumeInfo?.description}</p> */
-}
-
-{
-  /* <span>pages {volumeInfo?.pageCount}</span> */
-}
-
-{
-  /* <span>{volumeInfo?.publishedDate} {volumeInfo?.publisher}</span> */
-}
