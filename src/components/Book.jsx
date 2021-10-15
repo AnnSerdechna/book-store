@@ -4,8 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import AddIcon from '@mui/icons-material/Add';
-import CheckIcon from '@mui/icons-material/Check';
+import AddIcon from "@mui/icons-material/Add";
+import CheckIcon from "@mui/icons-material/Check";
 
 const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
   const [isAdded, setIsAdded] = useState(false);
@@ -34,9 +34,8 @@ const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
             {isAdded ? <CheckBox /> : <AddIcon color="primary" />}
           </IconButton>
           <IconButton onClick={onAddToFavorite}>
-            { isFavorite ? <Favorite /> : <FavoriteBorderIcon color="primary" />}
+            {isFavorite ? <Favorite /> : <FavoriteBorderIcon color="primary" />}
           </IconButton>
-
         </Stack>
       </ImageWrapper>
 
@@ -70,7 +69,7 @@ const Book = styled.div`
 
   &:hover {
     transform: translateY(-1.5%);
-    border-color: #FF1536;
+    border-color: #ff1536;
   }
 
   a {
@@ -112,11 +111,9 @@ const ImageWrapper = styled.div`
 `;
 
 const CheckBox = styled(CheckIcon)`
-  color: #00C549;
+  color: #00c549;
 `;
 
 const Favorite = styled(FavoriteIcon)`
-  color: #FF1536;
+  color: #ff1536;
 `;
-
-
