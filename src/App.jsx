@@ -5,18 +5,10 @@ import Book from "./components/Book";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { getPageCount, getPagesArr } from "./utils/pages";
 
 function App() {
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
-  const [totalPages, setTotalPages] = useState(0);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-
-  //TODO useMemo and create hook usePagination
-  let pagesArr = getPagesArr(totalPages);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -33,9 +25,6 @@ function App() {
       )
       .then((res) => {
         const data = res.data.items;
-        const totalCount = res.data.totalItems;
-
-        setTotalPages(getPageCount(totalCount, limit));
         setData(data);
       });
 
@@ -45,20 +34,13 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        `https://www.googleapis.com/books/v1/volumes?q=react&key=${API_KEY}&startIndex=${page}&maxResults=${limit}`
+        `https://www.googleapis.com/books/v1/volumes?q=react&key=${API_KEY}&startIndex=0&maxResults=10`
       )
       .then((res) => {
         const data = res.data.items;
-        const totalCount = res.data.totalItems;
-
-        setTotalPages(getPageCount(totalCount, limit));
         setData(data);
       });
-  }, [page]);
-
-  const changePage = (page) => {
-    setPage(page + 9);
-  };
+  }, []);
 
   return (
     <Main>
@@ -99,20 +81,6 @@ function App() {
           <Book key={book.id} {...book} />
         ))}
       </BooksWrapper>
-
-      <PaginationWrapper>
-        {pagesArr.map((num) => (
-          <button
-            onClick={() => changePage(num)}
-            key={num}
-            className={
-              page === num || page === num + 9 ? "page page--current" : "page"
-            }
-          >
-            {num}
-          </button>
-        ))}
-      </PaginationWrapper>
     </Main>
   );
 }
@@ -131,28 +99,6 @@ const BooksWrapper = styled.div`
   gap: 20px;
 `;
 
-const PaginationWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-  .page {
-    width: 45px;
-    height: 45px;
-    border: none;
-    background: transparent;
-    border-radius: 5px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    margin: 10px;
-    color: #fff;
-  }
-
-  .page--current {
-    background: #1976d2;
-  }
-`;
-
-// Header
 const MyHeader = styled.header`
   display: flex;
   align-items: center;
