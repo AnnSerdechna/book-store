@@ -1,13 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
-import { Book, BooksAction, BooksActionTypes } from "../../types/books";
+import { Books, BooksAction, BooksActionTypes } from "../../types/books";
 
-export const fetchBooks = () => {
+export const fetchBooks = (search: string) => {
+  const API_KEY = process.env.REACT_APP_API_KEY;
+
   return async (dispatch: Dispatch<BooksAction>) => {
     try {
       dispatch({ type: BooksActionTypes.FETCH_BOOKS });
       //!FIXME
-      const res: AxiosResponse<Book> = await axios.get('https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyBXmOyPEP7F2oCc7wQjEclpAJ_YxG4pB3I')
+      const res: AxiosResponse<Books> = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=${API_KEY}`)
  
       dispatch({ type:BooksActionTypes.FETCH_BOOKS_SUCCESS, payload: res.data.items})
     } catch (err) {

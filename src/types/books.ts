@@ -5,7 +5,7 @@ export interface BooksState {
 }
 
 //FIXME
-export interface Book {
+export interface Books {
   items: any[];
 }
 

@@ -1,48 +1,42 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Book from "./components/Book";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useActions } from "./hooks/useActions";
+import { useTypedSelector } from "./hooks/useTypedSelector";
 
-function App() {
-  const [data, setData] = useState([]);
+const App: React.FC = () => {
+  const {books, loading, error} = useTypedSelector(state => state.data);
+  const { fetchBooks } = useActions();
+
+  // const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  // const API_KEY = process.env.REACT_APP_API_KEY;
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    fetchBooks('react');
+  }, []);
+
+  if (loading) {
+    return <h3>LOADING...</h3>
+  }
+
+  if (error) {
+    return <h2>Error Error Error</h2>
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault();
-
-    axios
-      .get(
-        `https://www.googleapis.com/books/v1/volumes?q=${inputValue}&key=${API_KEY}&startIndex=1&maxResults=10`
-      )
-      .then((res) => {
-        const data = res.data.items;
-        setData(data);
-      });
-
+    fetchBooks(inputValue);
     setInputValue("");
   };
-
-  useEffect(() => {
-    axios
-      .get(
-        `https://www.googleapis.com/books/v1/volumes?q=react&key=${API_KEY}&startIndex=0&maxResults=10`
-      )
-      .then((res) => {
-        const data = res.data.items;
-        console.log('[data]', data);
-        
-        setData(data);
-      });
-  }, []);
 
   return (
     <Main>
@@ -59,7 +53,7 @@ function App() {
             onChange={handleChange}
           />
 
-          <IconButton onClick={handleSubmit}>
+          <IconButton type="submit" onClick={handleSubmit}>
             <SearchIcon color="primary" />
           </IconButton>
         </FormWrapper>
@@ -79,13 +73,120 @@ function App() {
       </MyHeader>
 
       <BooksWrapper>
-        {data?.map((book) => (
+        {books?.map((book) => (
           <Book key={book.id} {...book} />
         ))}
       </BooksWrapper>
+
+      {/* FIXME */}
+      {/* <BooksWrapper>
+        {data?.map((book) => (
+          <Book {...book} />
+        ))}
+      </BooksWrapper> */}
     </Main>
   );
 }
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import styled from "styled-components";
+// import Book from "./components/Book";
+// import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+// import { IconButton } from "@mui/material";
+// import SearchIcon from "@mui/icons-material/Search";
+
+// import { useActions } from "./hooks/useActions";
+// import { fetchBooks } from "./store/action-creators/data";
+// import { useTypedSelector } from "./hooks/useTypedSelector";
+
+
+// const App: React.FC = () => {
+//   //!
+//   const {books, loading, error} = useTypedSelector(state => state.data);
+//   const { fetchBooks } = useActions();
+//   //!
+
+
+//   const [data, setData] = useState([]);
+//   const [inputValue, setInputValue] = useState("");
+
+//   const API_KEY = process.env.REACT_APP_API_KEY;
+
+//   const handleChange = (e) => {
+//     setInputValue(e.target.value);
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     axios
+//       .get(
+//         `https://www.googleapis.com/books/v1/volumes?q=${inputValue}&key=${API_KEY}&startIndex=1&maxResults=10`
+//       )
+//       .then((res) => {
+//         const data = res.data.items;
+//         setData(data);
+//       });
+
+//     setInputValue("");
+//   };
+
+//   //!
+//   useEffect(() => {
+//     axios
+//       .get(
+//         `https://www.googleapis.com/books/v1/volumes?q=react&key=${API_KEY}&startIndex=0&maxResults=10`
+//       )
+//       .then((res) => {
+//         const data = res.data.items;
+//         console.log('[data]', data);
+        
+//         setData(data);
+//       });
+//   }, []);
+
+//   return (
+//     <Main>
+//       <MyHeader>
+//         <h1>
+//           Books <br /> Finder
+//         </h1>
+
+//         <FormWrapper onSubmit={handleSubmit}>
+//           <Input
+//             value={inputValue}
+//             type="text"
+//             placeholder="Search"
+//             onChange={handleChange}
+//           />
+
+//           <IconButton onClick={handleSubmit}>
+//             <SearchIcon color="primary" />
+//           </IconButton>
+//         </FormWrapper>
+
+//         <Auth>
+//           <Button>Log In</Button>
+//           <Button>Sign Up</Button>
+//         </Auth>
+
+//         <CartWrapper>
+//           <strong>759 UAH</strong>
+//           <IconButton>
+//             <ShoppingCart color="primary" />
+//           </IconButton>
+//           <span>0</span>
+//         </CartWrapper>
+//       </MyHeader>
+
+//       <BooksWrapper>
+//         {data?.map((book) => (
+//           <Book key={book.id} {...book} />
+//         ))}
+//       </BooksWrapper>
+//     </Main>
+//   );
+// }
 
 export default App;
 
@@ -191,3 +292,4 @@ const Button = styled.button`
 const ShoppingCart = styled(ShoppingBasketIcon)`
   font-size: 28px !important;
 `;
+
