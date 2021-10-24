@@ -38,6 +38,8 @@ function App() {
       )
       .then((res) => {
         const data = res.data.items;
+        console.log('[data]', data);
+        
         setData(data);
       });
   }, []);

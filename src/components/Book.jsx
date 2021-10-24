@@ -47,10 +47,15 @@ const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
         <p>{volumeInfo?.authors?.join(",")}</p>
       </Authors>
 
-      <span style={{ display: "flex" }}>
-        {saleInfo?.retailPrice?.amount || 310}{" "}
-        {saleInfo?.retailPrice?.currencyCode || "UAH"}
-      </span>
+      <Bottom>
+        <span>
+          {saleInfo?.retailPrice?.amount || 310}{" "}
+          {saleInfo?.retailPrice?.currencyCode || "UAH"}
+        </span>
+        <span>
+          <a href={accessInfo.webReaderLink} target="_blank">Read</a>
+        </span>
+      </Bottom>
     </Book>
   );
 };
@@ -116,4 +121,15 @@ const CheckBox = styled(CheckIcon)`
 
 const Favorite = styled(FavoriteIcon)`
   color: #ff1536;
+`;
+
+const Bottom = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    color: #ff1536;
+  }
 `;
