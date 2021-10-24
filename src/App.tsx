@@ -21,7 +21,7 @@ function App() {
 
     axios
       .get(
-        `https://www.googleapis.com/books/v1/volumes?q=${inputValue}&key=${API_KEY}&startIndex=1&maxResults=40`
+        `https://www.googleapis.com/books/v1/volumes?q=${inputValue}&key=${API_KEY}&startIndex=1&maxResults=10`
       )
       .then((res) => {
         const data = res.data.items;

@@ -39,9 +39,11 @@ const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
         </Stack>
       </ImageWrapper>
 
-      <a href={volumeInfo?.infoLink} target="_blank">
-        {volumeInfo?.title}
-      </a>
+      <h1>
+        <a href={volumeInfo?.infoLink} target="_blank">
+          {volumeInfo?.title}
+        </a>
+      </h1>
 
       <Authors>
         <p>{volumeInfo?.authors?.join(",")}</p>
@@ -49,11 +51,13 @@ const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
 
       <Bottom>
         <span>
-          {saleInfo?.retailPrice?.amount || 310}{" "}
+          {parseInt(saleInfo?.retailPrice?.amount) || 310}{" "}
           {saleInfo?.retailPrice?.currencyCode || "UAH"}
         </span>
         <span>
-          <a href={accessInfo.webReaderLink} target="_blank">Read</a>
+          <a href={accessInfo.webReaderLink} target="_blank">
+            Read
+          </a>
         </span>
       </Bottom>
     </Book>
@@ -75,6 +79,10 @@ const Book = styled.div`
   &:hover {
     transform: translateY(-1.5%);
     border-color: #ff1536;
+  }
+
+  h1 {
+    font-size: 18px;
   }
 
   a {
@@ -130,6 +138,10 @@ const Bottom = styled.div`
   width: 100%;
 
   a {
-    color: #ff1536;
+    color: #1f87ff;
+
+    &:hover {
+      color: #00c549;
+    }
   }
 `;
