@@ -141,7 +141,7 @@ const Bottom = styled.div`
     color: #1f87ff;
 
     &:hover {
-      color: #00c549;
+      color: #fff;
     }
   }
 `;

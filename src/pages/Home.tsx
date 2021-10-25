@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 import Header from "../components/Header";
 import Book from "../components/Book";
+import MainLayout from "../containers/MainLayout";
+import CartDrawer from "../components/CartDrawer";
 
 const Home: React.FC = () => {
   const { books, loading, error } = useTypedSelector((state) => state.data);
   const { fetchBooks } = useActions();
 
   const [inputValue, setInputValue] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     fetchBooks("react");
@@ -36,16 +39,27 @@ const Home: React.FC = () => {
     setInputValue("");
   };
 
+  const handleOpenCartDrawer = () => {
+    setOpen(true);
+  };
+
+  const handleCloseCartDrawer = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <Header onInputChange={handleChange} onFormSubmit={handleSubmit} />
+    <MainLayout>
+
+      {open && <CartDrawer onClose={handleCloseCartDrawer} />}
+      
+      <Header onInputChange={handleChange} onFormSubmit={handleSubmit} openCartDrawer={handleOpenCartDrawer} />
 
       <BooksWrapper>
         {books?.map((book) => (
           <Book key={book.id} {...book} />
         ))}
       </BooksWrapper>
-    </>
+    </MainLayout>
   );
 };
 

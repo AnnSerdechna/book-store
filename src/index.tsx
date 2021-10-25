@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 import { store } from "./store";
@@ -22,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   
     overflow-y: scroll;
 
@@ -48,9 +53,11 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
     <GlobalStyle />
   </React.StrictMode>,
   document.getElementById("root")

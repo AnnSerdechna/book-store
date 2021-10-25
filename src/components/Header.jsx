@@ -1,21 +1,19 @@
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const Header = ({ onInputChange, onFormSubmit }) => {
+const Header = ({ onInputChange, onFormSubmit, openCartDrawer }) => {
   return (
     <MyHeader>
       <h1>Books</h1>
 
       <FormWrapper onSubmit={onFormSubmit}>
-   
-          <Input onChange={onInputChange} type="text" placeholder="Search" />
+        <Input onChange={onInputChange} type="text" placeholder="Search" />
 
-          <IconButton type="submit" onClick={onFormSubmit}>
-            <SearchIcon color="primary" />
-          </IconButton>
-     
+        <IconButton type="submit" onClick={onFormSubmit}>
+          <SearchIcon color="primary" />
+        </IconButton>
       </FormWrapper>
 
       <Auth>
@@ -25,9 +23,11 @@ const Header = ({ onInputChange, onFormSubmit }) => {
 
       <CartWrapper>
         <strong>759 UAH</strong>
-        <IconButton>
-          <ShoppingCart color="primary" />
+
+        <IconButton color="primary" onClick={openCartDrawer}>
+          <ShoppingCart />
         </IconButton>
+
         <span>0</span>
       </CartWrapper>
     </MyHeader>
@@ -44,7 +44,7 @@ const MyHeader = styled.header`
 
   h1 {
     text-transform: uppercase;
-    font-size: 32px;
+    font-size: 42px;
     font-family: "Big Shoulders Stencil Display", cursive;
     letter-spacing: 2.5px;
     color: white;
@@ -90,7 +90,7 @@ const CartWrapper = styled.div`
     font-weight: 500;
     padding: 10px 20px;
     border-radius: 5px;
-    margin-right: 3px;
+    margin-right: 10px;
   }
 
   span {
@@ -124,6 +124,6 @@ const Button = styled.button`
   }
 `;
 
-const ShoppingCart = styled(ShoppingBasketIcon)`
-  font-size: 28px !important;
+const ShoppingCart = styled(ShoppingCartIcon)`
+  font-size: 26px !important;
 `;
