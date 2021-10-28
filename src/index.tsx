@@ -56,9 +56,9 @@ ReactDOM.render(
     <Router>
       <Provider store={store}>
         <App />
+        <GlobalStyle />
       </Provider>
     </Router>
-    <GlobalStyle />
   </React.StrictMode>,
   document.getElementById("root")
 );

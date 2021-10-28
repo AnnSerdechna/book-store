@@ -1,72 +1,95 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import AddIcon from "@mui/icons-material/Add";
-import CheckIcon from "@mui/icons-material/Check";
 
-const Books = ({ volumeInfo, saleInfo, accessInfo }) => {
-  const [isAdded, setIsAdded] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+import { MyFavoriteIcon, MyAddIcon } from "./UI";
+import { FC } from "react";
 
-  const onAddToCart = () => {
-    setIsAdded(!isAdded);
-  };
+interface IAccessInfo {
+  webReaderLink: string;
+  country: string;
+}
 
-  const onAddToFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+interface IRetailPrice {
+  amount: number;
+  currencyCode: string;
+}
 
+interface ISaleInfo {
+  buyLink: string;
+  country: string;
+  retailPrice: IRetailPrice;
+}
+
+interface IImages {
+  smallThumbnail: string;
+}
+
+interface IVolumeInfo {
+  authors: string[];
+  categories?: string[];
+  description?: string;
+  imageLinks: IImages;
+  title: string;
+  infoLink: string;
+}
+
+interface IBooksProps {
+  volumeInfo: IVolumeInfo;
+  saleInfo: ISaleInfo;
+  accessInfo: IAccessInfo;
+  id: string;
+}
+
+const Book: FC<IBooksProps> = (props) => {
   return (
-    <Book>
+    <BookContainer>
       <ImageWrapper>
         <img
           src={
-            volumeInfo?.imageLinks?.smallThumbnail ||
+            props.volumeInfo?.imageLinks?.smallThumbnail ||
             "https://uusaratoga.org/wp-content/uploads/2020/05/Books.jpg"
           }
         />
 
         <Stack spacing={2}>
-          <IconButton onClick={onAddToCart}>
-            {isAdded ? <CheckBox /> : <AddIcon color="primary" />}
-          </IconButton>
-          <IconButton onClick={onAddToFavorite}>
-            {isFavorite ? <Favorite /> : <FavoriteBorderIcon color="primary" />}
-          </IconButton>
+          <MyAddIcon />
+          <MyFavoriteIcon />
         </Stack>
       </ImageWrapper>
 
       <h1>
-        <a href={volumeInfo?.infoLink} target="_blank">
-          {volumeInfo?.title}
+        <a href={props.volumeInfo?.infoLink} target="_blank">
+          {props.volumeInfo?.title}
         </a>
       </h1>
 
       <Authors>
-        <p>{volumeInfo?.authors?.join(",")}</p>
+        <p>{props.volumeInfo?.authors?.join(",")}</p>
       </Authors>
 
       <Bottom>
         <span>
-          {parseInt(saleInfo?.retailPrice?.amount) || 310}{" "}
-          {saleInfo?.retailPrice?.currencyCode || "UAH"}
+          <strong>
+            {Math.floor(props.saleInfo?.retailPrice?.amount) || 310}
+          </strong>{" "}
+          {props.saleInfo?.retailPrice?.currencyCode || "UAH"}
         </span>
         <span>
-          <a href={accessInfo.webReaderLink} target="_blank">
+          <a href={props.accessInfo.webReaderLink} target="_blank">
             Read
           </a>
         </span>
       </Bottom>
-    </Book>
+
+      <Link to={`/book/${props.id}`}>View More</Link>
+    </BookContainer>
   );
 };
 
-export default Books;
+export default Book;
 
-const Book = styled.div`
+const BookContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -123,19 +146,16 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const CheckBox = styled(CheckIcon)`
-  color: #00c549;
-`;
-
-const Favorite = styled(FavoriteIcon)`
-  color: #ff1536;
-`;
-
 const Bottom = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  strong {
+    font-weight: 300;
+    color: #ff1536;
+  }
 
   a {
     color: #1f87ff;

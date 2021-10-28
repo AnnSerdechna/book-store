@@ -17,5 +17,5 @@ const Main = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  color: #fff;
 `;

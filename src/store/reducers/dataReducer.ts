@@ -11,6 +11,12 @@ export const dataReducer = (
   action: BooksAction
 ): BooksState => {
   switch (action.type) {
+    case BooksActionTypes.FETCH_ONE_BOOK:
+      return {
+        books: [],
+        loading: true,
+        error: null,
+      };
     case BooksActionTypes.FETCH_BOOKS:
       return {
         books: [],

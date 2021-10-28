@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 import Header from "../components/Header";
-import Book from "../components/Book";
 import MainLayout from "../containers/MainLayout";
 import CartDrawer from "../components/CartDrawer";
+import Book from "../components/Book";
 
 const Home: React.FC = () => {
   const { books, loading, error } = useTypedSelector((state) => state.data);

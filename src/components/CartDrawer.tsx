@@ -1,10 +1,8 @@
+import React from "react";
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import CloseIcon from "@mui/icons-material/Close";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import cartImage from "../assets/images/trolley.png";
-import React from "react";
+import { Close } from "@mui/icons-material";
+import { MyDeleteIcon } from "./UI";
 
 interface CartDrawerComponent {
   onClose: () => void;
@@ -25,7 +23,7 @@ const CartDrawer: React.FC<CartDrawerComponent> = ({ onClose }) => {
         <CartHeader>
           <h3>Your Cart</h3>
           <IconButton color="primary" onClick={onClose}>
-            <CloseIcon />
+            <Close />
           </IconButton>
         </CartHeader>
 
@@ -39,10 +37,11 @@ const CartDrawer: React.FC<CartDrawerComponent> = ({ onClose }) => {
             <h4>Author</h4>
             <span>525 UAH</span>
           </Info>
+          <div>
 
-          <IconButton color="primary">
-            <DeleteForeverIcon />
-          </IconButton>
+          <MyDeleteIcon />
+          </div>
+
         </BookInfo>
 
         <CartFooter>
@@ -62,20 +61,19 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 100;
 `;
 const Cart = styled.div`
   position: fixed;
   right: 0;
   top: 0;
-  width: 300px;
+  width: 350px;
   height: 100vh;
   background: #1c1c22;
-  // border-radius: 5px;
   color: #fff;
   z-index: 1;
-  padding: 20px;
+  padding: 40px 20px;
 
   display: flex;
   flex-direction: column;
@@ -112,9 +110,10 @@ const CartHeader = styled.header`
   align-items: center;
   justify-content: space-between;
 `;
+
 const BookInfo = styled.div`
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: space-between;
 
   img {
