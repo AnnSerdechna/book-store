@@ -77,9 +77,9 @@ const Book: FC<IBooksProps> = (props) => {
           {props.saleInfo?.retailPrice?.currencyCode || "UAH"}
         </span>
         <span>
-          <a href={props.accessInfo.webReaderLink} target="_blank">
+          {/* <a href={props.accessInfo.webReaderLink} target="_blank">
             Read
-          </a>
+          </a> */}
         </span>
       </Bottom>
 
