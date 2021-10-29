@@ -4,42 +4,43 @@ import Stack from "@mui/material/Stack";
 
 import { MyFavoriteIcon, MyAddIcon } from "./UI";
 import { FC } from "react";
+import { IBooksProps } from "../types/data";
 
-interface IAccessInfo {
-  webReaderLink: string;
-  country: string;
-}
+// interface IAccessInfo {
+//   webReaderLink: string;
+//   country: string;
+// }
 
-interface IRetailPrice {
-  amount: number;
-  currencyCode: string;
-}
+// interface IRetailPrice {
+//   amount: number;
+//   currencyCode: string;
+// }
 
-interface ISaleInfo {
-  buyLink: string;
-  country: string;
-  retailPrice: IRetailPrice;
-}
+// interface ISaleInfo {
+//   buyLink: string;
+//   country: string;
+//   retailPrice: IRetailPrice;
+// }
 
-interface IImages {
-  smallThumbnail: string;
-}
+// interface IImages {
+//   smallThumbnail: string;
+// }
 
-interface IVolumeInfo {
-  authors: string[];
-  categories?: string[];
-  description?: string;
-  imageLinks: IImages;
-  title: string;
-  infoLink: string;
-}
+// interface IVolumeInfo {
+//   authors: string[];
+//   categories?: string[];
+//   description?: string;
+//   imageLinks: IImages;
+//   title: string;
+//   infoLink: string;
+// }
 
-interface IBooksProps {
-  volumeInfo: IVolumeInfo;
-  saleInfo: ISaleInfo;
-  accessInfo: IAccessInfo;
-  id: string;
-}
+// interface IBooksProps {
+//   volumeInfo: IVolumeInfo;
+//   saleInfo: ISaleInfo;
+//   accessInfo: IAccessInfo;
+//   id: string;
+// }
 
 const Book: FC<IBooksProps> = (props) => {
   return (

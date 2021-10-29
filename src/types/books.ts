@@ -1,5 +1,7 @@
+import { IBooksProps } from "./data";
+
 export interface BooksState {
-  books: any[];
+  books: Books[];
   loading: boolean;
   error: null | string;
 }
