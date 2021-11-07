@@ -1,31 +1,32 @@
-import { BookState, BookActionTypes, BookAction } from "../../types/book";
+import { IBookState, BooksActionTypes, BooksAction } from "../../types/books";
+import { IBooksProps } from "../../types/data";
 
-const initialState: BookState = {
-  book: Object,
+const initialState: IBookState = {
+  onebook: <IBooksProps>{},
   loading: false,
   error: null,
 };
 
 export const bookDetailsReducer = (
   state = initialState,
-  action: BookAction
-): BookState => {
+  action: BooksAction
+): IBookState => {
   switch (action.type) {
-    case BookActionTypes.FETCH_ONE_BOOK:
+    case BooksActionTypes.FETCH_ONE_BOOK:
       return {
-        book: Object,
+        onebook: <IBooksProps>{},
         loading: true,
         error: null,
       };
-    case BookActionTypes.FETCH_BOOK_SUCCESS:
+    case BooksActionTypes.FETCH_BOOK_SUCCESS:
       return {
-        book: action.payload,
+        onebook: action.payload,
         loading: false,
         error: null,
       };
-    case BookActionTypes.FETCH_BOOK_ERROR:
+    case BooksActionTypes.FETCH_BOOK_ERROR:
       return {
-        book: Object,
+        onebook: <IBooksProps>{},
         loading: false,
         error: action.payload,
       };
