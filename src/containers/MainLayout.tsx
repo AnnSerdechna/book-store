@@ -16,6 +16,18 @@ const Main = styled.div`
   margin: 20px auto;
   padding: 10px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   color: #fff;
+
+  // @media(min-width: 1064px) {
+  //   max-width: 900px;
+  // }
+
+  // @media(max-width: 360px) {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
 `;

@@ -24,5 +24,5 @@ const Favorite = styled(FavoriteBorderIcon)`
   color: #1976d2;
 `;
 const IsFavorite = styled(FavoriteIcon)`
-  color: #FF1536;
+  color: #fff;
 `;

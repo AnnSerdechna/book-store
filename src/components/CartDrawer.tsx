@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { MyDeleteIcon } from "./UI";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 interface CartDrawerComponent {
   onClose: () => void;
 }
 
 const CartDrawer: React.FC<CartDrawerComponent> = ({ onClose }) => {
+
   return (
     <Overlay>
       <Cart>
@@ -38,15 +39,15 @@ const CartDrawer: React.FC<CartDrawerComponent> = ({ onClose }) => {
             <span>525 UAH</span>
           </Info>
           <div>
-
-          <MyDeleteIcon />
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
           </div>
-
         </BookInfo>
 
         <CartFooter>
           <h3>Summary:</h3>
-          <strong>1299 {' '}$</strong>
+          <strong>1299 $</strong>
         </CartFooter>
       </Cart>
     </Overlay>
@@ -68,7 +69,7 @@ const Cart = styled.div`
   position: fixed;
   right: 0;
   top: 0;
-  width: 350px;
+  width: 300px;
   height: 100vh;
   background: #1c1c22;
   color: #fff;
@@ -79,7 +80,8 @@ const Cart = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  h3, h4 {
+  h3,
+  h4 {
     font-weight: 300;
   }
 `;
@@ -128,6 +130,15 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const DeleteIcon = styled(DeleteForeverIcon)`
+  color: #1976d2;
+  transition: all 200ms !important;
+
+  &:hover {
+    color: #FF1536;
+  }
 `;
 
 const CartFooter = styled.footer`

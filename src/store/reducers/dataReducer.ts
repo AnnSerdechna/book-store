@@ -1,7 +1,8 @@
-import { BooksState, BooksActionTypes, BooksAction } from "../../types/books";
+import { IBooksState, BooksActionTypes, BooksAction } from "../../types/books";
+import { IBooksProps } from "../../types/data";
 
-const initialState: BooksState = {
-  books: [],
+const initialState: IBooksState = {
+  items: <IBooksProps[]>[],
   loading: false,
   error: null,
 };
@@ -9,32 +10,30 @@ const initialState: BooksState = {
 export const dataReducer = (
   state = initialState,
   action: BooksAction
-): BooksState => {
+): IBooksState => {
   switch (action.type) {
-    case BooksActionTypes.FETCH_ONE_BOOK:
-      return {
-        books: [],
-        loading: true,
-        error: null,
-      };
     case BooksActionTypes.FETCH_BOOKS:
       return {
-        books: [],
+        items: <IBooksProps[]>[],
         loading: true,
         error: null,
       };
     case BooksActionTypes.FETCH_BOOKS_SUCCESS:
       return {
-        books: action.payload,
+        items: action.payload,
         loading: false,
         error: null,
       };
     case BooksActionTypes.FETCH_BOOKS_ERROR:
       return {
-        books: [],
+        items: <IBooksProps[]>[],
         loading: false,
         error: action.payload,
       };
+
+
+
+
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 interface IAccessInfo {
-  webReaderLink: string | null;
+  webReaderLink: string;
   country: string;
 }
 
@@ -25,11 +25,14 @@ interface IVolumeInfo {
   imageLinks: IImages;
   title: string;
   infoLink: string;
+  publisher?: string;
+  publishedDate?: string;
 }
 
-export interface IBooksProps {
+export type IBooksProps = {
   volumeInfo: IVolumeInfo;
   saleInfo: ISaleInfo;
   accessInfo: IAccessInfo;
   id: string;
 }
+

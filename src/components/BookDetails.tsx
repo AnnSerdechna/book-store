@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { IconButton } from "@mui/material";
@@ -7,28 +7,35 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import MainLayout from "../containers/MainLayout";
-import { MyFavoriteIcon, MyAddIcon, MyDeleteIcon } from "./UI";
+import { MyFavoriteIcon, MyAddIcon } from "./UI";
+import MySkeleton from "./UI/MySkeleton";
+import { IBooksProps } from "../types/data";
 
-const BookDetails = () => {
-  const { id } = useParams();
-  const { book, loading, error } = useTypedSelector((state) => state.book);
+type BookParams = {
+  id: string;
+};
+
+const BookDetails: FC<IBooksProps> = () => {
+  const { id } = useParams<BookParams>();
+  const { onebook, loading, error } = useTypedSelector((state) => state.book);
   const { fetchOneBook } = useActions();
 
   React.useEffect(() => {
     fetchOneBook(id);
   }, []);
 
-  if (loading) {
-    return <h3>LOADING...</h3>;
-  }
-
   if (error) {
     return <h2>Error Error Error</h2>;
   }
 
-  console.log(book);
-
+  //!fixme
+  const onAddToCart = () => {
+    console.log('Add to cart');
+  }
+  
   return (
+    <>
+    {loading ? <MySkeleton oneBook={true} booksArray={false} /> : (
     <Wrapper>
       <Link to="/">
         <IconButton color="primary">
@@ -40,57 +47,58 @@ const BookDetails = () => {
         <Container>
           <TopBlock>
             <img
-              src={book.volumeInfo?.imageLinks?.smallThumbnail}
-              alt={book.volumeInfo?.title}
+              src={onebook.volumeInfo?.imageLinks?.smallThumbnail}
+              alt={onebook.volumeInfo?.title}
             />
             <InfoBlock>
-              <h2>{book.volumeInfo?.title}</h2>
-              <h3>{book.volumeInfo?.authors?.join(",")}</h3>
-              <i>{book.volumeInfo?.categories?.join(",")}</i>
+              <h2>{onebook.volumeInfo?.title}</h2>
+              <h3>{onebook.volumeInfo?.authors?.join(",")}</h3>
+              <i>{onebook.volumeInfo?.categories?.join(",")}</i>
               <span>
                 <p>
-                  {book.volumeInfo?.publisher}, {book.accessInfo?.country}
+                  {onebook.volumeInfo?.publisher}, {onebook.accessInfo?.country}
                 </p>
-                <p>{book.volumeInfo?.publishedDate}</p>
+                <p>{onebook.volumeInfo?.publishedDate}</p>
               </span>
               <span>
-                <strong>{book.saleInfo?.retailPrice?.amount}</strong>{" "}
-                {book.saleInfo?.retailPrice?.currencyCode}
+                <strong>{onebook.saleInfo?.retailPrice?.amount || 310}</strong>{" "}
+                {onebook.saleInfo?.retailPrice?.currencyCode}
               </span>
             </InfoBlock>
             <div>
               <Icons>
                 <li>
-                  <MyAddIcon />
+                  <MyAddIcon onAdd={onAddToCart} />
                 </li>
                 <li>
                   <MyFavoriteIcon />
-                </li>
-                <li>
-                  <MyDeleteIcon />
                 </li>
               </Icons>
             </div>
           </TopBlock>
 
           <BottomBlock>
-            <p>{book.volumeInfo?.description}</p>
-            <a href={book.saleInfo?.buyLink} target="_blank">
+            <p>{onebook.volumeInfo?.description}</p>
+            <a href={onebook.saleInfo?.buyLink} target="_blank">
               Buy
             </a>
-            <a href={book.accessInfo?.webReaderLink} target="_blank">
+            <a href={onebook.accessInfo?.webReaderLink} target="_blank">
               Read
             </a>
           </BottomBlock>
         </Container>
       </MainLayout>
     </Wrapper>
+    )}
+    </>
   );
 };
 
 export default BookDetails;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+margin-top: 20px;
+`;
 
 const Container = styled.div`
   width: 800px;
@@ -128,7 +136,7 @@ const InfoBlock = styled.div`
   flex: 1;
 
   strong {
-    color: #ff1536;
+    color: #1976d2;
     font-size: 18px;
     font-weight: 400;
   }
@@ -149,7 +157,7 @@ const BottomBlock = styled.div`
 
     &:hover {
       text-decoration: underline;
-      color: #ff1536;
+      color: #fff;
     }
   }
 `;

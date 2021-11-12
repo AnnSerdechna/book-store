@@ -1,9 +1,20 @@
+import { FC } from "react";
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+//!FIXME
+interface HeaderProps {
+  onInputChange: any;
+  onFormSubmit: any;
+  openCartDrawer: any;
+}
 
-const Header = ({ onInputChange, onFormSubmit, openCartDrawer }) => {
+const Header: FC<HeaderProps> = ({
+  onInputChange,
+  onFormSubmit,
+  openCartDrawer,
+}) => {
   return (
     <MyHeader>
       <h1>Books</h1>
@@ -41,6 +52,7 @@ const MyHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px 20px 20px;
+  width: 100%;
 
   h1 {
     text-transform: uppercase;

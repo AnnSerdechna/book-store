@@ -1,90 +1,66 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Stack from "@mui/material/Stack";
 
 import { MyFavoriteIcon, MyAddIcon } from "./UI";
-import { FC } from "react";
 import { IBooksProps } from "../types/data";
-
-// interface IAccessInfo {
-//   webReaderLink: string;
-//   country: string;
-// }
-
-// interface IRetailPrice {
-//   amount: number;
-//   currencyCode: string;
-// }
-
-// interface ISaleInfo {
-//   buyLink: string;
-//   country: string;
-//   retailPrice: IRetailPrice;
-// }
-
-// interface IImages {
-//   smallThumbnail: string;
-// }
-
-// interface IVolumeInfo {
-//   authors: string[];
-//   categories?: string[];
-//   description?: string;
-//   imageLinks: IImages;
-//   title: string;
-//   infoLink: string;
-// }
-
-// interface IBooksProps {
-//   volumeInfo: IVolumeInfo;
-//   saleInfo: ISaleInfo;
-//   accessInfo: IAccessInfo;
-//   id: string;
-// }
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import MySkeleton from "./UI/MySkeleton";
 
 const Book: FC<IBooksProps> = (props) => {
+  const { loading } = useTypedSelector((state) => state.data);
+
+  console.log("Book");
+
+  const onAddToCart = () => {
+    console.log("Add to cart");
+  };
+
   return (
-    <BookContainer>
-      <ImageWrapper>
-        <img
-          src={
-            props.volumeInfo?.imageLinks?.smallThumbnail ||
-            "https://uusaratoga.org/wp-content/uploads/2020/05/Books.jpg"
-          }
-        />
+    <>
+      {loading ? (
+        <MySkeleton booksArray={true} oneBook={false} />
+      ) : (
+        <BookContainer>
+          <ImageWrapper>
+            <img
+              src={
+                props.volumeInfo?.imageLinks?.smallThumbnail ||
+                "https://uusaratoga.org/wp-content/uploads/2020/05/Books.jpg"
+              }
+            />
 
-        <Stack spacing={2}>
-          <MyAddIcon />
-          <MyFavoriteIcon />
-        </Stack>
-      </ImageWrapper>
+            <Stack spacing={2}>
+              <MyAddIcon onAdd={onAddToCart} />
+              <MyFavoriteIcon />
+            </Stack>
+          </ImageWrapper>
 
-      <h1>
-        <a href={props.volumeInfo?.infoLink} target="_blank">
-          {props.volumeInfo?.title}
-        </a>
-      </h1>
+          <h1>{props?.volumeInfo?.title}</h1>
 
-      <Authors>
-        <p>{props.volumeInfo?.authors?.join(",")}</p>
-      </Authors>
+          <Authors>
+            <p>{props?.volumeInfo?.authors?.join(",")}</p>
+          </Authors>
 
-      <Bottom>
-        <span>
-          <strong>
-            {Math.floor(props.saleInfo?.retailPrice?.amount) || 310}
-          </strong>{" "}
-          {props.saleInfo?.retailPrice?.currencyCode || "UAH"}
-        </span>
-        <span>
-          {/* <a href={props.accessInfo.webReaderLink} target="_blank">
-            Read
-          </a> */}
-        </span>
-      </Bottom>
+          <Bottom>
+            <span>
+              <strong>
+                {Math.floor(props.saleInfo?.retailPrice?.amount) || 310}
+              </strong>{" "}
+              {props.saleInfo?.retailPrice?.currencyCode || "UAH"}
+            </span>
+            <span>
+              <a href={props.accessInfo?.webReaderLink} target="_blank">
+                Read
+              </a>
+            </span>
+          </Bottom>
 
-      <Link to={`/book/${props.id}`}>View More</Link>
-    </BookContainer>
+          <Link to={`/book/${props.id}`}>View More</Link>
+        </BookContainer>
+      )}
+    </>
   );
 };
 
@@ -121,6 +97,13 @@ const BookContainer = styled.div`
       color: #1f87ff;
     }
   }
+
+  // @media(max-width: 360px) {
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   width: 200px;
+  // }
 `;
 
 const Authors = styled.div`
@@ -154,8 +137,8 @@ const Bottom = styled.div`
   width: 100%;
 
   strong {
-    font-weight: 300;
-    color: #ff1536;
+    font-weight: 500;
+    color: #1f87ff;
   }
 
   a {
